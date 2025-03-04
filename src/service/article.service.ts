@@ -1,12 +1,10 @@
-import {
-  Injectable,
-  Logger,
-  NotFoundException,
-  NotImplementedException,
-} from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindManyOptions, MoreThan, Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
+import { MoreThan, FindManyOptions } from 'typeorm';
 import Article from '../entity/article.entity';
+import CreateArticleDto from '../dto/create-article.dto';
+import UpdateArticleDto from '../dto/update-article.dto';
 
 @Injectable()
 export default class ArticleService {
@@ -59,13 +57,13 @@ export default class ArticleService {
     throw new NotFoundException(`Post with id ${id} not found`);
   }
 
-  async createPost(body: any) {
+  async createPost(body: CreateArticleDto) {
     const newPost = await this.postsRepository.create(body);
     await this.postsRepository.save(newPost);
     return newPost;
   }
 
-  async updatePost(id: number, post: any) {
+  async updatePost(id: number, post: UpdateArticleDto) {
     await this.postsRepository.update(id, post);
     const updatedPost = await this.postsRepository.findOne({
       where: {

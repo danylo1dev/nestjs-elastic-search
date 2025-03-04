@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ElasticsearchModule } from '@nestjs/elasticsearch';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import Joi from 'joi';
-import Article from './entity/article.entity';
+import * as Joi from 'joi';
 import ArticleController from './controller/article.controller';
+import Article from './entity/article.entity';
 import ArticleService from './service/article.service';
 
 @Module({
@@ -37,6 +38,17 @@ import ArticleService from './service/article.service';
         synchronize: true,
         autoLoadEntities: true,
       }),
+    }),
+    ElasticsearchModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        node: configService.get('ELASTICSEARCH_NODE'),
+        auth: {
+          username: configService.get('ELASTICSEARCH_USERNAME'),
+          password: configService.get('ELASTICSEARCH_PASSWORD'),
+        },
+      }),
+      inject: [ConfigService],
     }),
     TypeOrmModule.forFeature([Article]),
   ],
