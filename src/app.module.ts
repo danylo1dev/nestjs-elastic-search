@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ElasticsearchModule } from '@nestjs/elasticsearch';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import * as Joi from 'joi';
-import ArticleController from './controller/article.controller';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import Article from './entity/article.entity';
+import { ElasticsearchModule } from '@nestjs/elasticsearch';
+import ArticleController from './controller/article.controller';
 import ArticleService from './service/article.service';
+import SearchService from './service/search.service';
+import * as Joi from 'joi';
 
 @Module({
   imports: [
@@ -53,6 +54,6 @@ import ArticleService from './service/article.service';
     TypeOrmModule.forFeature([Article]),
   ],
   controllers: [ArticleController],
-  providers: [ArticleService],
+  providers: [ArticleService, SearchService],
 })
 export class AppModule {}

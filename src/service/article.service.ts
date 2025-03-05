@@ -1,6 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
+import SearchService from './search.service';
 import { MoreThan, FindManyOptions } from 'typeorm';
 import Article from '../entity/article.entity';
 import CreateArticleDto from '../dto/create-article.dto';
@@ -11,6 +12,7 @@ export default class ArticleService {
   constructor(
     @InjectRepository(Article)
     private postsRepository: Repository<Article>,
+    private searchService: SearchService,
   ) {}
 
   async getPosts(
@@ -60,6 +62,7 @@ export default class ArticleService {
   async createPost(body: CreateArticleDto) {
     const newPost = await this.postsRepository.create(body);
     await this.postsRepository.save(newPost);
+    this.searchService.indexArticle(newPost);
     return newPost;
   }
 
@@ -71,6 +74,7 @@ export default class ArticleService {
       },
     });
     if (updatedPost) {
+      await this.searchService.update(updatedPost);
       return updatedPost;
     }
     throw new NotFoundException(`Post with id ${id} not found`);
@@ -81,6 +85,7 @@ export default class ArticleService {
     if (!deleteResponse.affected) {
       throw new NotFoundException(`Post with id ${id} not found`);
     }
+    await this.searchService.remove(id);
   }
 
   async searchForPosts(
@@ -89,6 +94,25 @@ export default class ArticleService {
     limit?: number,
     startId?: number,
   ) {
-    throw new NotImplementedException();
+    const { results, count } = await this.searchService.search(
+      text,
+      offset,
+      limit,
+      startId,
+    );
+    const ids = results.map((result) => result.id);
+    if (!ids.length) {
+      return {
+        items: [],
+        count,
+      };
+    }
+    const items = await this.postsRepository.find({
+      where: { id: In(ids) },
+    });
+    return {
+      items,
+      count,
+    };
   }
 }
