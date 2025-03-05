@@ -14,7 +14,7 @@ import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import ArticleService from '../service/article.service';
 import CreateArticleDto from '../dto/create-article.dto';
 import UpdateArticleDto from '../dto/update-article.dto';
-import PaginationParamsDto from '../dto/update-article.dto copy';
+import PaginationParamsDto from 'src/dto/pagination-params.dto';
 
 @Controller('article')
 @ApiTags('article')
