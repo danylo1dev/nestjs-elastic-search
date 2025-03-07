@@ -1,63 +1,73 @@
-# Introduce
-Sample backend application and REST-API with Nestjs, Docker, Postgres, Elasticsearch and Kibana.
+# Introduce 🚀
 
-## Usage
+Sample backend application and REST-API with Nestjs, Docker 🐳, Postgres 🐘, Elasticsearch 🔍 and Kibana 📊.
 
-#### Clone project
+## Usage 🛠️
+
+#### Clone project 📥
+
 ```bash
 git clone https://github.com/amin7ranjbar/nestjs-elastic-search.git
 ```
 
-#### Install Requirement
+#### Install Requirement 📦
+
 Run command below for install npm packages:
+
 ```bash
 npm i
 ```
 
 Run command below for pull and run Docker images:
+
 ```bash
 sudo docker-compose run -d
 ```
 
-#### Environment
-Create **.env** file like [.env.example](https://github.com/amin7ranjbar/nestjs-elastic-search/blob/master/.env.example)
+#### Environment ⚙️
 
-#### Running the app
-- development
+Create **.env** file like [.env.example](https://github.com/amin7ranjbar/nestjs-elastic-search/blob/master/.env.example) 📝
+
+#### Running the app 🏃‍♂️
+
+- development 🧑‍💻
+
 ```bash
 npm run start
-
 ```
-- watch mode
+
+- watch mode 👀
+
 ```bash
 npm run start:dev
-
 ```
-- production mode
+
+- production mode 🏭
+
 ```bash
 npm run start:prod
-
 ```
 
-## URLs
-- [Document or Swagger](http://localhost:3000/api/)
-- [pgAdmin](http://localhost:8080/)
-- [Kibana](http://localhost:5601/)
-- [Elasticsearch](http://localhost:9200/)
+## URLs 🔗
 
-## Technology
-- Typescript
-- Node.js
-- NestJs
-- Docker
-- Elasticsearch
-- Kibana
-- Postgres
-- pgAdmin
-- Typeorm
-- Swagger
+- [Document or Swagger](http://localhost:3000/api/) 📄
+- [pgAdmin](http://localhost:8080/) 🐘🖥️
+- [Kibana](http://localhost:5601/) 📊📈
+- [Elasticsearch](http://localhost:9200/) 🔍🌐
 
+## Technology 💻
 
-## License
+- Typescript 📜
+- Node.js 🟢
+- NestJs 🦉
+- Docker 🐳
+- Elasticsearch 🔍
+- Kibana 📊
+- Postgres 🐘
+- pgAdmin 🖥️
+- Typeorm 🏗️
+- Swagger 📜 API
 
-Nest is [MIT licensed](LICENSE).
+## License 📜
+
+Nest is [MIT licensed](LICENSE). ✅
